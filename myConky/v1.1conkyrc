@@ -1,0 +1,95 @@
+conky.config = {
+--  Author: Mike H   
+--  Date  : 04/02/2018
+--  
+-- Conky settings 
+	background = true,
+	update_interval = 1,
+	total_run_times = 0,
+
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+
+	override_utf8_locale = true,
+
+	double_buffer = true,
+	no_buffers = true,
+
+	text_buffer_size = 256,
+	imlib_cache_size = 0,
+
+
+
+-- Window specifications 
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_transparent = true,
+	own_window_hints = 'undecorated,sticky,skip_taskbar,skip_pager,below',
+	own_window_class = 'Conky',
+	own_window_argb_value = 0,
+	own_window_argb_visual = true,
+	own_window_colour = '000000',
+
+	border_inner_margin = 0,
+	border_outer_margin = 5,
+
+	minimum_width = 1000, minimum_height = 100,
+	maximum_width = 1000,
+
+	alignment = 'top_middle',
+	gap_x = 0,
+	gap_y = 5,
+
+-- Graphics settings 
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = false,
+
+-- Text settings 
+	use_xft = true,
+	font = 'Zekton:size=10',
+	xftalpha = 1.0,
+	format_human_readable = true,
+	uppercase = false,
+
+	temperature_unit = 'celsius',
+
+	default_color = 'FFFFFF',
+	default_shade_color = '000000',
+
+-- Lua Load  
+	lua_load = '/home/mike/.conky/myConky/v1.1rings.lua',
+	lua_draw_hook_pre = 'main',
+
+};
+
+conky.text = [[
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					         Time/Date/System Info 
+#----------------------------------------------------------------------------------------------------------------------------------------
+${goto 375}$color${font Zekton:size=32}${time %I:%M} 
+${goto 485}${voffset -68}$font${color 5e97f2}Uptime: $color$uptime_short
+${goto 485}${color 5e97f2}Kernel: $color$kernel
+#
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					Nvidia GPU
+#----------------------------------------------------------------------------------------------------------------------------------------
+${voffset -16}$color${font Zekton:size=9}${goto 23}${nvidia temp} C${goto 93}${nvidia gpuutil} %${goto 163}${nvidia membwutil} %${goto 233}${nvidia pcieutil} %${goto 303}${nvidia videoutil} %
+${color 5e97f2}GPU temp${goto 92}GPU${goto 162}RAM${goto 232}PCIe${goto 302}Video
+#
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					           CPU usage  
+#----------------------------------------------------------------------------------------------------------------------------------------
+$color${font Zekton:size=9}${voffset -30}${goto 670}${hwmon 1 temp 1} C${goto 740}${cpu cpu1} %${goto 810}${cpu cpu2} %${goto 880}${cpu cpu3} %${goto 950}${cpu cpu4} %
+${color 5e97f2}${goto 647}CPU Temp${goto 739}Cpu 1${goto 809}Cpu 2${goto 879}Cpu 3${goto 949}Cpu 4
+#
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					Root/RAM/Data usage   
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color FFFFFF}${font Zekton:size=9}${voffset 21}${goto 395}${fs_used /}${goto 488}${memperc} %${goto 579}${fs_used /mnt/data}
+${color 5e97f2}${goto 394}/ROOT${goto 487}RAM${goto 578}DATA
+
+]]
+
+

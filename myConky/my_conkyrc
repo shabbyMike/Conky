@@ -1,0 +1,121 @@
+conky.config = {
+--  Author: Mike H   
+--  Date  : 03/15/2018
+--  
+-- Conky settings 
+	background = true,
+	update_interval = 1,
+	total_run_times = 0,
+
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+
+	override_utf8_locale = true,
+
+	double_buffer = true,
+	no_buffers = true,
+
+	text_buffer_size = 256,
+	imlib_cache_size = 0,
+
+
+
+-- Window specifications 
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_transparent = true,
+	own_window_hints = 'undecorated,sticky,skip_taskbar,skip_pager,below',
+	own_window_class = 'Conky',
+	own_window_argb_value = 0,
+	own_window_argb_visual = true,
+	own_window_colour = '000000',
+
+	border_inner_margin = 0,
+	border_outer_margin = 5,
+
+	minimum_width = 250, minimum_height = 500,
+	maximum_width = 250,
+
+	alignment = 'top_left',
+	gap_x = 10,
+	gap_y = 15,
+
+-- Graphics settings 
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = false,
+
+-- Text settings 
+	use_xft = true,
+	font = 'Zekton:size=10',
+	xftalpha = 1.0,
+	format_human_readable = true,
+	uppercase = false,
+
+	temperature_unit = 'celsius',
+
+	default_color = 'FFFFFF',
+	default_shade_color = '000000',
+
+-- Lua Load  
+	lua_load = '/home/mike/.conky/myConky/my_rings_v1.lua',
+	lua_draw_hook_pre = 'main',
+
+
+
+};
+
+conky.text = [[
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					         Time and date 
+#----------------------------------------------------------------------------------------------------------------------------------------
+${voffset 7}${font Zekton:size=18}${color 5e97f2}${time %A}${font}$color${font Zekton:size=38}${goto 167}${voffset -8} ${time %e}${font}
+${font Zekton:size=18}${voffset -30}${time %b}${font}${voffset -3} ${font Zekton:size=20}${time %Y}${font}${color 5e97f2} ${hr 2}
+${font Zekton:size=10}${goto 10}${voffset 202}${color 5e97f2}Uptime: ${color}${alignr}${uptime_short}
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					           CPU usage 
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color 5e97f2}${font Zekton:size=8}${hr 2}$color
+${goto 22}${voffset 38}${cpu cpu1}% ${color 5e97f2}${goto 18}${voffset 12}CPU1 $color
+${goto 87}${voffset -27}${cpu cpu2}% ${color 5e97f2}${goto 83}${voffset 12}CPU2 $color
+${goto 157}${voffset -27}${cpu cpu3}% ${color 5e97f2}${goto 153}${voffset 12}CPU3 $color
+${goto 220}${voffset -27}${cpu cpu4}% ${color 5e97f2}${goto 216}${voffset 12}CPU4 $color
+${voffset 45}${color 5e97f2}${font Zekton:size=10}Temp: $color ${hwmon 2 temp 2} C  ${goto 142}${color 5e97f2}Freq: $color${freq_g} Ghz
+${color 5e97f2}Watts: $color${goto 142}${color 5e97f2}Running proc:$color $running_processes
+${color 5e97f2}Load:$color ${cpu} %${goto 142}${color 5e97f2}Processes:$color $processes
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					Root/RAM/Data usage   
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color 5e97f2}${voffset 2}${hr 2}
+${color FFFFFF}${font Zekton:size=9}${goto 7}${voffset 38}${fs_used /}
+${color 5e97f2}${goto 7}/Root
+${color FFFFFF}${goto 110}${voffset -32}${memperc}%
+${color 5e97f2}${goto 110}RAM
+${color FFFFFF}${goto 192}${voffset -32}${fs_free /mnt/data}
+${color 5e97f2}${goto 191}Data
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					     Computer info
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color 5e97f2}${font Zekton:size=10}${voffset 2}${hr 2}${voffset 5}
+${color 5e97f2}Hostname:$color${alignr}Manjaro XFCE
+${color 5e97f2}Kernel:$color${alignr}$kernel
+${color 5e97f2}OS:$color${alignr}$machine
+${color 5e97f2}User:$color${alignr}${exec whoami}
+#----------------------------------------------------------------------------------------------------------------------------------------
+#						Network Info
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color 5e97f2}${font Zekton:size=10}${voffset 2}${hr 2}
+${color 5e97f2}Down: $color${downspeed enp3s0} k/s ${alignr}${color 5e97f2}Up:$color ${upspeed enp3s0} k/s
+${downspeedgraph enp3s0 30,120 000000 5e97f2 100 -l} ${alignr}${upspeedgraph enp3s0 30,120 000000 5e97f2 100 -l}$color
+${color 5e97f2}Received:$color ${totaldown enp3s0} ${alignr}${color 5e97f2}Sent:$color ${totalup enp3s0}
+]];
+--[[
+					    Work on adding
+----------------------------------------------------------------------------------------------------------------------------------------
+			${color #5e97f2}Watts: $color${hwmon 1 power 1 | head -n 2} W
+			Core1:${offset 8}${if_match ${hwmon 2 temp 2}<=50}${color7}${else}${if_match ${hwmon 2 temp 2}<=70}${color8}${else}${if_match ${hwmon 2 		temp 2}>70}${color9}${endif}${endif}${endif}${hwmon 2 temp 2}${offset 2}??C${color}${offset 32}\
+##Core2:${offset 8}${if_match ${hwmon 2 temp 3}<=50}${color7}${else}${if_match ${hwmon 2 temp 3}<=70}${color8}${else}${if_match ${hwmon 2 temp 3}>70}${color9}${endif}${endif}${endif}${hwmon 2 temp 3}${offset 2}??C${color}${offset 32}\
+#${execi 15 sensors | grep 'power1' | awk -F' ' '{print $2}' | awk -F'.' '{print $1}'} W
+#
+]]
