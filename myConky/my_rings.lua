@@ -8,7 +8,7 @@
 	Enjoy!
 ]]
 
---Stole this from rings-v1.3.1.lua---Using these as watch indicator colors
+
 normal="0x5e97f2" --default bluish
 warn="0xffff00" --yellowish
 crit="0xff0000" --red
